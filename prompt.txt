@@ -1,0 +1,128 @@
+"""
+
+Sei un software architect senior + security engineer + product analyst.
+Il tuo compito è scrivere un documento di analisi tecnico-funzionale completo per lo sviluppo di un sistema di gestione e routing automatico delle email.
+
+Il documento deve essere strutturato, dettagliato e pronto per essere usato come base di sviluppo software.
+
+
+1. CONTEXT DEL PROGETTO
+Sto sviluppando un tool che si collega a un account email e:
+	- Visualizza le email in arrivo
+	- Analizza la sicurezza delle email
+	- Classifica il paese del mittente
+	- Analizza il contenuto della mail
+	- Reindirizza automaticamente le email ad altri indirizzi in base a regole
+È possibile anche l’integrazione con API di intelligenza artificiale per l’analisi del contenuto tramite prompt engineering.
+
+
+2. PIPELINE FUNZIONALE OBBLIGATORIA
+Il sistema deve seguire questa pipeline:
+	(1) Ingestion email
+		- Connessione a mailbox (IMAP / Gmail API / Outlook API)
+		- Recupero email in tempo reale o polling
+		- Parsing completo dell’email (header, body, MIME, allegati)
+	
+	(2) Security check (fondamentale)
+		Deve analizzare:
+			- Phishing detection
+			- Virus/malware detection
+			- Presenza allegati e loro rischio
+			- Analisi header completi (SPF, DKIM, DMARC, return-path, reply-to mismatch)
+			- Scoring di rischio (risk score 0–100)
+		Output: SAFE / SUSPICIOUS / DANGEROUS
+
+	(3) Country detection mittente
+		Deve usare:
+			- Dominio email (.it, .fr, .br, ecc.)
+			- Prefisso telefonico presente nella firma (se presente nel testo)
+			- Eventuali indicatori linguistici
+		Output: paese + confidence score
+
+	(4) Content understanding
+		- Riassunto della mail (3–6 righe)
+		- Classificazione del contenuto (es: marketing, supporto, fattura, spam, personale, altro)
+		- Estrazione entità rilevanti (nomi, aziende, date, importi se presenti)
+		- (Opzionale) uso API AI per NLP avanzato
+	
+	(5) Routing email
+		Regole di redirect basate su:
+			- rischio sicurezza
+			- paese
+			- contenuto
+			- mittente/dominio
+			- Possibilità di:
+				- forward
+				- block
+				- quarantine folder
+				- tagging
+
+3. OUTPUT RICHIESTO DALL’AI
+Il documento deve includere:
+	1. Executive summary
+		- Descrizione del sistema
+		Obiettivo => Use cases principali
+	2. Architettura tecnica
+		- Diagramma logico (descritto a parole)
+		- Componenti backend
+		- Eventuale frontend
+		- Message queue / event-driven design (se utile)
+		- Database schema suggerito
+	3. Email ingestion layer
+		- IMAP/API design
+		- Gestione autenticazione OAuth
+		- Gestione errori e retry
+	4. Security layer (molto dettagliato)
+		- Algoritmi anti-phishing
+		- Analisi header email
+		- Virus scanning (approcci e tool possibili)
+		- Risk scoring model (formula o logica)
+	5. Country detection module
+		- Logica dominio email
+		- NLP su firma email
+		- Euristiche e fallback
+	6. Content analysis module
+		- NLP pipeline
+		- Classificazione
+		- Summarization
+		- Entity extraction
+		- Possibile uso LLM API (prompt examples inclusi)
+	7. Routing engine
+		- Rule engine design
+		- Esempi di regole
+		- Priorità delle regole
+		- Conflict resolution
+	8. Data model
+		- Struttura email
+		- Log eventi
+		- Storage (SQL vs NoSQL)
+	9. Scalabilità
+		- Gestione alto volume email
+		- Async processing
+		- Queue system
+	10. Tech stack consigliato
+		- Backend
+		- AI/NLP
+		- Database
+		- Infrastructure
+	11. Rischi e mitigazioni
+		- falsi positivi phishing
+		- errori routing
+		- latenza AI API
+		- sicurezza dati
+
+4. VINCOLI IMPORTANTI
+	- Il documento deve essere tecnico e implementabile
+	- Deve includere decisioni architetturali motivate
+	- Deve includere esempi concreti (pseudo-codice se necessario)
+	- Deve essere pensato per produzione reale, non demo
+	- Deve considerare sicurezza come priorità alta
+	- L'implementazione futura dovrà avvenire step by step, quindi aggiungi un path completo a fine file, diviso per piccoli passi
+
+5. STILE
+	- Strutturato con titoli chiari
+	- Linguaggio tecnico ma comprensibile
+	- Nessuna vaghezza
+	- Approccio da system design interview + product spec
+
+"""
