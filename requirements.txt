@@ -1,0 +1,28 @@
+# Core
+fastapi
+uvicorn
+python-dotenv
+structlog
+
+# Database
+mysql-connector-python
+
+# Text processing (compatibile Python 3.14)
+langdetect
+beautifulsoup4
+joblib
+
+# Security
+tldextract
+
+# Utilities
+tenacity
+schedule
+
+# -----------------------------------------------------------
+# NLP avanzato (richiede Python <= 3.12 per wheel precompilati)
+# Installare separatamente quando disponibili per Python 3.14:
+# spacy
+# scikit-learn
+# yara-python
+# -----------------------------------------------------------

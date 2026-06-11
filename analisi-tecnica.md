@@ -1555,9 +1555,9 @@ async def analyze_content(text: str) -> dict:
 
 ### Fase 0: Setup Progetto
 
-- [ ] **0.1** — Creare la cartella radice del progetto e inizializzare il repository Git
-- [ ] **0.2** — Creare il file `.gitignore` (escludere `.env`, `__pycache__/`, `*.pyc`, `data/attachments/`, `models/*.pkl`, `venv/`)
-- [ ] **0.3** — Definire la struttura directory del progetto:
+- [x] **0.1** — Creare la cartella radice del progetto e inizializzare il repository Git
+- [x] **0.2** — Creare il file `.gitignore` (escludere `.env`, `__pycache__/`, `*.pyc`, `data/attachments/`, `models/*.pkl`, `venv/`)
+- [x] **0.3** — Definire la struttura directory del progetto:
   ```
   project/
   ├── src/
@@ -1578,7 +1578,7 @@ async def analyze_content(text: str) -> dict:
   ├── .env.example
   └── main.py
   ```
-- [ ] **0.4** — Creare il file `requirements.txt` con le dipendenze base:
+- [x] **0.4** — Creare il file `requirements.txt` con le dipendenze base:
   ```
   # Core
   fastapi
@@ -1600,9 +1600,9 @@ async def analyze_content(text: str) -> dict:
   tenacity
   schedule
   ```
-- [ ] **0.5** — Creare il virtual environment e installare le dipendenze da `requirements.txt`
-- [ ] **0.6** — Scaricare il modello spaCy italiano: `python -m spacy download it_core_news_lg`
-- [ ] **0.7** — Creare il file `.env.example` con tutte le variabili necessarie:
+- [x] **0.5** — Creare il virtual environment e installare le dipendenze da `requirements.txt`
+- [x] **0.6** — Scaricare il modello spaCy italiano: `python -m spacy download it_core_news_lg`
+- [x] **0.7** — Creare il file `.env.example` con tutte le variabili necessarie:
   ```
   # Database
   DB_HOST=
@@ -1620,51 +1620,51 @@ async def analyze_content(text: str) -> dict:
   ATTACHMENTS_DIR=data/attachments
   POLL_INTERVAL_SECONDS=60
   ```
-- [ ] **0.8** — Creare il file `.env` con i valori reali (copiare da `.env.example` e compilare)
-- [ ] **0.9** — Creare il modulo `src/utils/config.py`: caricamento `.env` con `python-dotenv`, validazione che tutte le variabili obbligatorie siano presenti, esposizione come oggetto config
-- [ ] **0.10** — Creare il modulo `src/utils/logger.py`: configurazione `structlog` con output JSON, livello da config, timestamp ISO
-- [ ] **0.11** — Creare il modulo `src/db/connection.py`: connessione a MySQL con `mysql-connector-python`, funzione `get_connection()` che legge parametri da config
-- [ ] **0.12** — Creare lo script `src/db/init_schema.sql` con tutto lo schema SQL dalla sezione 8 del documento (tabelle: accounts, emails, email_headers, email_attachments, security_results, country_results, content_results, routing_rules, routing_logs, audit_log)
-- [ ] **0.13** — Creare lo script `src/db/init_db.py` che legge `init_schema.sql` e lo esegue su MySQL per creare tutte le tabelle
-- [ ] **0.14** — Eseguire `init_db.py` e verificare che tutte le tabelle siano state create correttamente nel database
-- [ ] **0.15** — Inserire il record del singolo account Vianova nella tabella `accounts` (tramite script o manualmente)
-- [ ] **0.16** — Creare `main.py` come entry point: carica config, inizializza logger, testa connessione DB, stampa messaggio di avvio
-- [ ] **0.17** — Verificare che `python main.py` si avvia senza errori e logga correttamente
+- [x] **0.8** — Creare il file `.env` con i valori reali (copiare da `.env.example` e compilare)
+- [x] **0.9** — Creare il modulo `src/utils/config.py`: caricamento `.env` con `python-dotenv`, validazione che tutte le variabili obbligatorie siano presenti, esposizione come oggetto config
+- [x] **0.10** — Creare il modulo `src/utils/logger.py`: configurazione `structlog` con output JSON, livello da config, timestamp ISO
+- [x] **0.11** — Creare il modulo `src/db/connection.py`: connessione a MySQL con `mysql-connector-python`, funzione `get_connection()` che legge parametri da config
+- [x] **0.12** — Creare lo script `src/db/init_schema.sql` con tutto lo schema SQL dalla sezione 8 del documento (tabelle: accounts, emails, email_headers, email_attachments, security_results, country_results, content_results, routing_rules, routing_logs, audit_log)
+- [x] **0.13** — Creare lo script `src/db/init_db.py` che legge `init_schema.sql` e lo esegue su MySQL per creare tutte le tabelle
+- [x] **0.14** — Eseguire `init_db.py` e verificare che tutte le tabelle siano state create correttamente nel database
+- [x] **0.15** — Inserire il record del singolo account Vianova nella tabella `accounts` (tramite script o manualmente)
+- [x] **0.16** — Creare `main.py` come entry point: carica config, inizializza logger, testa connessione DB, stampa messaggio di avvio
+- [x] **0.17** — Verificare che `python main.py` si avvia senza errori e logga correttamente
 
 ---
 
 ### Fase 1: Email Ingestion
 
-- [ ] **1.1** — Creare il file `src/ingestion/__init__.py`
-- [ ] **1.2** — Creare la classe `IMAPClient` in `src/ingestion/imap_client.py` con `__init__` che accetta host, port, username, password da config
-- [ ] **1.3** — Implementare il metodo `connect()`: connessione IMAP4_SSL, login con credenziali, selezione INBOX
-- [ ] **1.4** — Implementare il metodo `disconnect()`: logout e chiusura connessione sicura
-- [ ] **1.5** — Testare manualmente: connettersi all'account Vianova e verificare che il login riesca
-- [ ] **1.6** — Implementare il metodo `poll()`: ricerca email non lette (`UNSEEN`), fetch dei dati grezzi (RFC822), restituzione lista di bytes
-- [ ] **1.7** — Testare `poll()`: verificare che recuperi correttamente le email non lette dall'account Vianova
-- [ ] **1.8** — Creare la classe `MIMEParser` in `src/ingestion/mime_parser.py`
-- [ ] **1.9** — Implementare il metodo `parse(raw_bytes)` → dict: parsing con `email.message_from_bytes`, estrazione `message_id`, `from`, `to`, `cc`, `subject`, `date`
-- [ ] **1.10** — Implementare il metodo `_extract_headers(msg)` → dict: iterazione su tutti gli header del messaggio, restituzione come dizionario chiave-valore
-- [ ] **1.11** — Implementare il metodo `_extract_body(msg, content_type)` → str: walk delle parti MIME, estrazione body `text/plain` e `text/html`
-- [ ] **1.12** — Implementare il metodo `_extract_attachments(msg)` → list[dict]: walk delle parti con `content_disposition == "attachment"`, per ciascuna estrarre filename, content_type, size, hash SHA256, raw bytes
-- [ ] **1.13** — Testare `MIMEParser` con almeno 3 email reali diverse: solo testo, HTML, con allegato
-- [ ] **1.14** — Creare il modulo `src/db/email_repository.py` con la classe `EmailRepository`
-- [ ] **1.15** — Implementare il metodo `save_email(parsed_data)`: INSERT nella tabella `emails`, restituire l'`id` generato (UUID4)
-- [ ] **1.16** — Implementare il metodo `save_headers(email_id, headers_dict)`: INSERT multiplo nella tabella `email_headers`
-- [ ] **1.17** — Testare: parsare un'email e salvarla in DB, verificare i dati nelle tabelle `emails` e `email_headers`
-- [ ] **1.18** — Creare la cartella `data/attachments/` se non esiste (con creazione automatica all'avvio)
-- [ ] **1.19** — Creare il modulo `src/ingestion/attachment_storage.py` con la classe `AttachmentStorage`
-- [ ] **1.20** — Implementare il metodo `save(email_id, attachment_data)`: salvare il file su disco in `data/attachments/{email_id}/{filename}`, restituire il path relativo
-- [ ] **1.21** — Implementare il metodo `save_metadata(email_id, attachment_meta, storage_path)`: INSERT nella tabella `email_attachments`
-- [ ] **1.22** — Testare: inviare email con allegato all'account Vianova, verificare che file e metadata siano salvati correttamente
-- [ ] **1.23** — Implementare il metodo `idle_listen()` in `IMAPClient`: invio comando IMAP IDLE, ascolto continuo, trigger `poll()` quando arriva un EXISTS
-- [ ] **1.24** — Testare IMAP IDLE: avviare il listener, inviare un'email all'account Vianova, verificare che venga rilevata automaticamente
-- [ ] **1.25** — Implementare retry logic con `tenacity` nel metodo `poll()`: exponential backoff, max 5 tentativi, log degli errori
-- [ ] **1.26** — Implementare reconnection automatica in `idle_listen()`: se la connessione cade, riconnettere con backoff
-- [ ] **1.27** — Implementare il metodo `update_status(email_id, status)` in `EmailRepository` per aggiornare `processing_status`
-- [ ] **1.28** — Creare la classe `IngestionService` in `src/ingestion/service.py` che orchestra: `IMAPClient` → `MIMEParser` → `EmailRepository` + `AttachmentStorage`, aggiornando lo status (`pending` → `processing` → `completed`/`failed`)
-- [ ] **1.29** — Integrare `IngestionService` in `main.py` con loop di polling tramite `schedule`
-- [ ] **1.30** — Test end-to-end completo: avviare il sistema, inviare 5 email diverse all'account Vianova (solo testo, HTML, con allegato, con CC, con header complessi), verificare che tutte siano salvate in DB e su filesystem
+- [x] **1.1** — Creare il file `src/ingestion/__init__.py`
+- [x] **1.2** — Creare la classe `IMAPClient` in `src/ingestion/imap_client.py` con `__init__` che accetta host, port, username, password da config
+- [x] **1.3** — Implementare il metodo `connect()`: connessione IMAP4_SSL, login con credenziali, selezione INBOX
+- [x] **1.4** — Implementare il metodo `disconnect()`: logout e chiusura connessione sicura
+- [x] **1.5** — Testare manualmente: connettersi all'account Vianova e verificare che il login riesca
+- [x] **1.6** — Implementare il metodo `poll()`: ricerca email non lette (`UNSEEN`), fetch dei dati grezzi (RFC822), restituzione lista di bytes
+- [x] **1.7** — Testare `poll()`: verificare che recuperi correttamente le email non lette dall'account Vianova
+- [x] **1.8** — Creare la classe `MIMEParser` in `src/ingestion/mime_parser.py`
+- [x] **1.9** — Implementare il metodo `parse(raw_bytes)` → dict: parsing con `email.message_from_bytes`, estrazione `message_id`, `from`, `to`, `cc`, `subject`, `date`
+- [x] **1.10** — Implementare il metodo `_extract_headers(msg)` → dict: iterazione su tutti gli header del messaggio, restituzione come dizionario chiave-valore
+- [x] **1.11** — Implementare il metodo `_extract_body(msg, content_type)` → str: walk delle parti MIME, estrazione body `text/plain` e `text/html`
+- [x] **1.12** — Implementare il metodo `_extract_attachments(msg)` → list[dict]: walk delle parti con `content_disposition == "attachment"`, per ciascuna estrarre filename, content_type, size, hash SHA256, raw bytes
+- [x] **1.13** — Testare `MIMEParser` con almeno 3 email reali diverse: solo testo, HTML, con allegato
+- [x] **1.14** — Creare il modulo `src/db/email_repository.py` con la classe `EmailRepository`
+- [x] **1.15** — Implementare il metodo `save_email(parsed_data)`: INSERT nella tabella `emails`, restituire l'`id` generato (UUID4)
+- [x] **1.16** — Implementare il metodo `save_headers(email_id, headers_dict)`: INSERT multiplo nella tabella `email_headers`
+- [x] **1.17** — Testare: parsare un'email e salvarla in DB, verificare i dati nelle tabelle `emails` e `email_headers`
+- [x] **1.18** — Creare la cartella `data/attachments/` se non esiste (con creazione automatica all'avvio)
+- [x] **1.19** — Creare il modulo `src/ingestion/attachment_storage.py` con la classe `AttachmentStorage`
+- [x] **1.20** — Implementare il metodo `save(email_id, attachment_data)`: salvare il file su disco in `data/attachments/{email_id}/{filename}`, restituire il path relativo
+- [x] **1.21** — Implementare il metodo `save_metadata(email_id, attachment_meta, storage_path)`: INSERT nella tabella `email_attachments`
+- [x] **1.22** — Testare: inviare email con allegato all'account Vianova, verificare che file e metadata siano salvati correttamente
+- [x] **1.23** — Implementare il metodo `idle_listen()` in `IMAPClient`: invio comando IMAP IDLE, ascolto continuo, trigger `poll()` quando arriva un EXISTS
+- [x] **1.24** — Testare IMAP IDLE: avviare il listener, inviare un'email all'account Vianova, verificare che venga rilevata automaticamente
+- [x] **1.25** — Implementare retry logic con `tenacity` nel metodo `poll()`: exponential backoff, max 5 tentativi, log degli errori
+- [x] **1.26** — Implementare reconnection automatica in `idle_listen()`: se la connessione cade, riconnettere con backoff
+- [x] **1.27** — Implementare il metodo `update_status(email_id, status)` in `EmailRepository` per aggiornare `processing_status`
+- [x] **1.28** — Creare la classe `IngestionService` in `src/ingestion/service.py` che orchestra: `IMAPClient` → `MIMEParser` → `EmailRepository` + `AttachmentStorage`, aggiornando lo status (`pending` → `processing` → `completed`/`failed`)
+- [x] **1.29** — Integrare `IngestionService` in `main.py` con loop di polling tramite `schedule`
+- [x] **1.30** — Test end-to-end completo: avviare il sistema, inviare 5 email diverse all'account Vianova (solo testo, HTML, con allegato, con CC, con header complessi), verificare che tutte siano salvate in DB e su filesystem
 
 ---
 
