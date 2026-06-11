@@ -1716,23 +1716,23 @@ async def analyze_content(text: str) -> dict:
 
 ### Fase 3: Country Detection
 
-- [ ] **3.1** — Creare il file `src/country/__init__.py`
-- [ ] **3.2** — Creare la classe `CountryDetector` in `src/country/detector.py`
-- [ ] **3.3** — Creare il file `src/country/maps.py` con la mappa `COUNTRY_TLD_MAP`: almeno 200 TLD country code → nome paese (it → Italy, fr → France, de → Germany, ecc.)
-- [ ] **3.4** — Implementare `_detect_from_tld(from_address)`: estrazione TLD con `tldextract`, lookup in `COUNTRY_TLD_MAP`, gestione TLD composti (es: `co.uk` → uk)
-- [ ] **3.5** — Implementare il controllo dominio email completo: per domini gTLD (.com, .org, .net), verificare se il dominio di posta (es: `poste.it`, `laposte.fr`) contiene un TLD riconoscibile come segnale aggiuntivo
-- [ ] **3.6** — Testare TLD detection e domain detection con almeno 10 indirizzi email di paesi diversi (`.it`, `.fr`, `.de`, `.es`, `.co.uk`, `.com`, ecc.)
-- [ ] **3.7** — Creare la mappa `PHONE_PREFIX_MAP` in `src/country/maps.py`: prefisso telefonico → paese (39 → Italy, 33 → France, ecc.)
-- [ ] **3.8** — Implementare `_detect_from_phone(body_text)`: ricerca pattern prefisso telefonico negli ultimi 500 caratteri (firma), lookup in mappa
-- [ ] **3.9** — Testare phone prefix detection con firme email contenenti numeri di telefono internazionali
-- [ ] **3.10** — Creare la mappa `LANGUAGE_COUNTRY_MAP` in `src/country/maps.py`: codice lingua → paese primario (it → Italy, fr → France, ecc.)
-- [ ] **3.11** — Implementare `_detect_language(body_text)`: detection lingua con `langdetect`, lookup in mappa
-- [ ] **3.12** — Testare language detection con email in italiano, inglese, francese, tedesco, spagnolo
-- [ ] **3.13** — Implementare `_detect_from_ip(headers)`: estrazione IP da header `Received` e `X-Originating-IP`, geolocalizzazione con database GeoLite2 locale
-- [ ] **3.14** — Implementare `_resolve_signals(signals)`: combinazione segnali multipli con confidence pesata (TLD 0.7, phone 0.8, language 0.5, IP 0.6), risoluzione conflitti
-- [ ] **3.15** — Creare il modulo `src/db/country_repository.py` con metodo `save_result(email_id, country_result)`: INSERT nella tabella `country_results`
-- [ ] **3.16** — Implementare il metodo pubblico `detect(email_data)` → dict che orchestra tutti i segnali e salva in DB
-- [ ] **3.17** — Testare country detection end-to-end con email di almeno 5 paesi diversi, verificare risultati in DB
+- [x] **3.1** — Creare il file `src/country/__init__.py`
+- [x] **3.2** — Creare la classe `CountryDetector` in `src/country/detector.py`
+- [x] **3.3** — Creare il file `src/country/maps.py` con la mappa `COUNTRY_TLD_MAP`: almeno 200 TLD country code → nome paese (it → Italy, fr → France, de → Germany, ecc.)
+- [x] **3.4** — Implementare `_detect_from_tld(from_address)`: estrazione TLD con `tldextract`, lookup in `COUNTRY_TLD_MAP`, gestione TLD composti (es: `co.uk` → uk)
+- [x] **3.5** — Implementare il controllo dominio email completo: per domini gTLD (.com, .org, .net), verificare se il dominio di posta (es: `poste.it`, `laposte.fr`) contiene un TLD riconoscibile come segnale aggiuntivo
+- [x] **3.6** — Testare TLD detection e domain detection con almeno 10 indirizzi email di paesi diversi (`.it`, `.fr`, `.de`, `.es`, `.co.uk`, `.com`, ecc.)
+- [x] **3.7** — Creare la mappa `PHONE_PREFIX_MAP` in `src/country/maps.py`: prefisso telefonico → paese (39 → Italy, 33 → France, ecc.)
+- [x] **3.8** — Implementare `_detect_from_phone(body_text)`: ricerca pattern prefisso telefonico negli ultimi 500 caratteri (firma), lookup in mappa
+- [x] **3.9** — Testare phone prefix detection con firme email contenenti numeri di telefono internazionali
+- [x] **3.10** — Creare la mappa `LANGUAGE_COUNTRY_MAP` in `src/country/maps.py`: codice lingua → paese primario (it → Italy, fr → France, ecc.)
+- [x] **3.11** — Implementare `_detect_language(body_text)`: detection lingua con `langdetect`, lookup in mappa
+- [x] **3.12** — Testare language detection con email in italiano, inglese, francese, tedesco, spagnolo
+- [x] **3.13** — Implementare `_detect_from_ip(headers)`: estrazione IP da header `Received` e `X-Originating-IP`, geolocalizzazione con database GeoLite2 locale
+- [x] **3.14** — Implementare `_resolve_signals(signals)`: combinazione segnali multipli con confidence pesata (TLD 0.7, phone 0.8, language 0.5, IP 0.6), risoluzione conflitti
+- [x] **3.15** — Creare il modulo `src/db/country_repository.py` con metodo `save_result(email_id, country_result)`: INSERT nella tabella `country_results`
+- [x] **3.16** — Implementare il metodo pubblico `detect(email_data)` → dict che orchestra tutti i segnali e salva in DB
+- [x] **3.17** — Testare country detection end-to-end con email di almeno 5 paesi diversi, verificare risultati in DB
 
 ---
 
