@@ -1671,46 +1671,46 @@ async def analyze_content(text: str) -> dict:
 ### Fase 2: Security Engine
 
 **Header Analysis:**
-- [ ] **2.1** — Creare il file `src/security/__init__.py`
-- [ ] **2.2** — Creare la classe `HeaderAnalyzer` in `src/security/header_analyzer.py`
-- [ ] **2.3** — Implementare `_check_spf(headers)`: parsing campo `Authentication-Results`, verificare presenza `spf=pass`, assegnare risk_contribution (0 se pass, 20 se fail)
-- [ ] **2.4** — Implementare `_check_dkim(headers)`: parsing `dkim=pass/fail` da `Authentication-Results`, risk_contribution 0/15
-- [ ] **2.5** — Implementare `_check_dmarc(headers)`: parsing `dmarc=pass/fail` da `Authentication-Results`, risk_contribution 0/25
-- [ ] **2.6** — Implementare `_check_return_path(headers)`: confronto dominio `From` vs `Return-Path`, risk_contribution 0/15 se mismatch
-- [ ] **2.7** — Implementare `_check_reply_to(headers)`: confronto dominio `From` vs `Reply-To`, risk_contribution 0/10 se mismatch
-- [ ] **2.8** — Implementare `_analyze_received_chain(headers)`: parsing chain degli header `Received`, estrazione IP originante
-- [ ] **2.9** — Implementare il metodo pubblico `analyze(headers)` → dict che chiama tutti i check e restituisce i risultati aggregati
-- [ ] **2.10** — Testare `HeaderAnalyzer` con header di email reali ricevute sull'account Vianova
+- [x] **2.1** — Creare il file `src/security/__init__.py`
+- [x] **2.2** — Creare la classe `HeaderAnalyzer` in `src/security/header_analyzer.py`
+- [x] **2.3** — Implementare `_check_spf(headers)`: parsing campo `Authentication-Results`, verificare presenza `spf=pass`, assegnare risk_contribution (0 se pass, 20 se fail)
+- [x] **2.4** — Implementare `_check_dkim(headers)`: parsing `dkim=pass/fail` da `Authentication-Results`, risk_contribution 0/15
+- [x] **2.5** — Implementare `_check_dmarc(headers)`: parsing `dmarc=pass/fail` da `Authentication-Results`, risk_contribution 0/25
+- [x] **2.6** — Implementare `_check_return_path(headers)`: confronto dominio `From` vs `Return-Path`, risk_contribution 0/15 se mismatch
+- [x] **2.7** — Implementare `_check_reply_to(headers)`: confronto dominio `From` vs `Reply-To`, risk_contribution 0/10 se mismatch
+- [x] **2.8** — Implementare `_analyze_received_chain(headers)`: parsing chain degli header `Received`, estrazione IP originante
+- [x] **2.9** — Implementare il metodo pubblico `analyze(headers)` → dict che chiama tutti i check e restituisce i risultati aggregati
+- [x] **2.10** — Testare `HeaderAnalyzer` con header di email reali ricevute sull'account Vianova
 
 **Phishing Detection:**
-- [ ] **2.11** — Creare la classe `PhishingDetector` in `src/security/phishing_detector.py`
-- [ ] **2.12** — Implementare `_extract_urls(body_html)`: estrazione di tutti gli URL dal body (regex + parsing href da HTML)
-- [ ] **2.13** — Implementare `_analyze_urls(urls)`: controllo URL shortener, IP in URL, subdomain eccessivi, punycode/IDN, calcolo risk score (cap 50)
-- [ ] **2.14** — Implementare `_check_patterns(body_text)`: matching con pattern regex sospetti (urgenza, credenziali, premi), calcolo risk score
-- [ ] **2.15** — Implementare `_check_homoglyphs(from_field)`: mappa caratteri Cyrillic/lookalike → ASCII, detection di sostituzione, risk score 30 se trovato
-- [ ] **2.16** — Implementare `_check_display_name_spoof(from_field)`: detection di display name che imita domini noti (es: "PayPal Security <random@evil.com>")
-- [ ] **2.17** — Implementare il metodo pubblico `analyze(email_data)` → dict con phishing_score aggregato
-- [ ] **2.18** — Testare `PhishingDetector` con email di phishing note (campioni da PhishTank o creati ad hoc)
+- [x] **2.11** — Creare la classe `PhishingDetector` in `src/security/phishing_detector.py`
+- [x] **2.12** — Implementare `_extract_urls(body_html)`: estrazione di tutti gli URL dal body (regex + parsing href da HTML)
+- [x] **2.13** — Implementare `_analyze_urls(urls)`: controllo URL shortener, IP in URL, subdomain eccessivi, punycode/IDN, calcolo risk score (cap 50)
+- [x] **2.14** — Implementare `_check_patterns(body_text)`: matching con pattern regex sospetti (urgenza, credenziali, premi), calcolo risk score
+- [x] **2.15** — Implementare `_check_homoglyphs(from_field)`: mappa caratteri Cyrillic/lookalike → ASCII, detection di sostituzione, risk score 30 se trovato
+- [x] **2.16** — Implementare `_check_display_name_spoof(from_field)`: detection di display name che imita domini noti (es: "PayPal Security <random@evil.com>")
+- [x] **2.17** — Implementare il metodo pubblico `analyze(email_data)` → dict con phishing_score aggregato
+- [x] **2.18** — Testare `PhishingDetector` con email di phishing note (campioni da PhishTank o creati ad hoc)
 
 **Malware Scanning:**
-- [ ] **2.19** — Creare la classe `MalwareScanner` in `src/security/malware_scanner.py`
-- [ ] **2.20** — Definire le liste `DANGEROUS_EXTENSIONS` e `SUSPICIOUS_EXTENSIONS` come costanti
-- [ ] **2.21** — Implementare `_check_extension(filename)`: confronto estensione con blocklist, restituire livello di rischio
-- [ ] **2.22** — Implementare integrazione ClamAV: connessione al daemon `clamd`, scan allegato tramite socket, parsing risultato
-- [ ] **2.23** — Implementare `_scan_yara(attachment_bytes)`: caricamento regole YARA base, scanning allegato, restituzione matches
-- [ ] **2.24** — Definire un set iniziale di regole YARA per pattern comuni (macro in Office, script embedded, PE headers)
-- [ ] **2.25** — Implementare il metodo pubblico `scan_attachment(attachment_bytes, metadata)` → dict che orchestra i 3 livelli di scan
-- [ ] **2.26** — Testare `MalwareScanner` con file di test: `.exe`, `.pdf` pulito, `.docm` con macro, file rinominato
+- [x] **2.19** — Creare la classe `MalwareScanner` in `src/security/malware_scanner.py`
+- [x] **2.20** — Definire le liste `DANGEROUS_EXTENSIONS` e `SUSPICIOUS_EXTENSIONS` come costanti
+- [x] **2.21** — Implementare `_check_extension(filename)`: confronto estensione con blocklist, restituire livello di rischio
+- [x] **2.22** — Implementare integrazione ClamAV: connessione al daemon `clamd`, scan allegato tramite socket, parsing risultato
+- [x] **2.23** — Implementare `_scan_yara(attachment_bytes)`: caricamento regole YARA base, scanning allegato, restituzione matches
+- [x] **2.24** — Definire un set iniziale di regole YARA per pattern comuni (macro in Office, script embedded, PE headers)
+- [x] **2.25** — Implementare il metodo pubblico `scan_attachment(attachment_bytes, metadata)` → dict che orchestra i 3 livelli di scan
+- [x] **2.26** — Testare `MalwareScanner` con file di test: `.exe`, `.pdf` pulito, `.docm` con macro, file rinominato
 
 **Risk Scoring:**
-- [ ] **2.27** — Creare la classe `RiskScorer` in `src/security/risk_scorer.py`
-- [ ] **2.28** — Definire i pesi per ogni componente: header 25%, phishing 30%, attachment 25%, reputation 10%, anomaly 10%
-- [ ] **2.29** — Definire le soglie: SAFE (0-29), SUSPICIOUS (30-69), DANGEROUS (70-100)
-- [ ] **2.30** — Implementare il metodo `calculate(analysis)` → `SecurityResult`: calcolo score pesato, determinazione verdetto
-- [ ] **2.31** — Implementare `_collect_flags(analysis)`: raccolta di tutti i flag attivi (es: `spf_fail`, `homoglyph_detected`, `dangerous_extension`)
-- [ ] **2.32** — Creare il modulo `src/db/security_repository.py` con metodo `save_result(email_id, security_result)`: INSERT nella tabella `security_results`
-- [ ] **2.33** — Creare la classe `SecurityEngine` in `src/security/engine.py` che orchestra `HeaderAnalyzer` + `PhishingDetector` + `MalwareScanner` + `RiskScorer`, salva risultato in DB
-- [ ] **2.34** — Testare `SecurityEngine` end-to-end: passare email reali (sicure e sospette), verificare verdetti e score in DB
+- [x] **2.27** — Creare la classe `RiskScorer` in `src/security/risk_scorer.py`
+- [x] **2.28** — Definire i pesi per ogni componente: header 25%, phishing 30%, attachment 25%, reputation 10%, anomaly 10%
+- [x] **2.29** — Definire le soglie: SAFE (0-29), SUSPICIOUS (30-69), DANGEROUS (70-100)
+- [x] **2.30** — Implementare il metodo `calculate(analysis)` → `SecurityResult`: calcolo score pesato, determinazione verdetto
+- [x] **2.31** — Implementare `_collect_flags(analysis)`: raccolta di tutti i flag attivi (es: `spf_fail`, `homoglyph_detected`, `dangerous_extension`)
+- [x] **2.32** — Creare il modulo `src/db/security_repository.py` con metodo `save_result(email_id, security_result)`: INSERT nella tabella `security_results`
+- [x] **2.33** — Creare la classe `SecurityEngine` in `src/security/engine.py` che orchestra `HeaderAnalyzer` + `PhishingDetector` + `MalwareScanner` + `RiskScorer`, salva risultato in DB
+- [x] **2.34** — Testare `SecurityEngine` end-to-end: passare email reali (sicure e sospette), verificare verdetti e score in DB
 
 ---
 
