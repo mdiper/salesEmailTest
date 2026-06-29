@@ -1739,13 +1739,13 @@ async def analyze_content(text: str) -> dict:
 ### Fase 4: Content Analysis (Locale)
 
 **Preprocessing:**
-- [ ] **4.1** — Creare il file `src/content/__init__.py`
-- [ ] **4.2** — Creare la classe `EmailPreprocessor` in `src/content/preprocessor.py`
-- [ ] **4.3** — Implementare strip HTML: parsing con `BeautifulSoup`, rimozione tag `script`/`style`/`head`, estrazione testo
-- [ ] **4.4** — Implementare normalizzazione whitespace: rimozione righe vuote multiple, normalizzazione spazi/tab
-- [ ] **4.5** — Implementare rimozione testo citato: detection di `>`, `On ... wrote:`, `--- Original Message ---` e troncamento
-- [ ] **4.6** — Implementare il metodo pubblico `process(email_data)` → str che orchestra i 3 step
-- [ ] **4.7** — Testare preprocessing con email HTML complesse, email con thread citati, email solo testo
+- [x] **4.1** — Creare il file `src/content/__init__.py`
+- [x] **4.2** — Creare la classe `EmailPreprocessor` in `src/content/preprocessor.py`
+- [x] **4.3** — Implementare strip HTML: parsing con `BeautifulSoup`, rimozione tag `script`/`style`/`head`, estrazione testo
+- [x] **4.4** — Implementare normalizzazione whitespace: rimozione righe vuote multiple, normalizzazione spazi/tab
+- [x] **4.5** — Implementare rimozione testo citato: detection di `>`, `On ... wrote:`, `--- Original Message ---` e troncamento
+- [x] **4.6** — Implementare il metodo pubblico `process(email_data)` → str che orchestra i 3 step
+- [x] **4.7** — Testare preprocessing con email HTML complesse, email con thread citati, email solo testo
 
 **Classificazione:**
 - [ ] **4.8** — Creare la classe `ContentClassifier` in `src/content/classifier.py`
