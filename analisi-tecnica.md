@@ -1748,110 +1748,110 @@ async def analyze_content(text: str) -> dict:
 - [x] **4.7** — Testare preprocessing con email HTML complesse, email con thread citati, email solo testo
 
 **Classificazione:**
-- [ ] **4.8** — Creare la classe `ContentClassifier` in `src/content/classifier.py`
-- [ ] **4.9** — Definire i pattern regex `RULE_BASED_SIGNALS` per ogni categoria: invoice, marketing, spam, support, legal, hr, sales, personal
-- [ ] **4.10** — Implementare `_rule_based_classify(text)` → dict: matching pattern per categoria, calcolo confidence in base al numero e forza dei match
-- [ ] **4.11** — Testare classificazione rule-based con almeno 2 email per ogni categoria
-- [ ] **4.12** — Preparare un dataset di training: raccogliere almeno 50-100 email etichettate per categoria (possono essere raccolte incrementalmente)
-- [ ] **4.13** — Creare lo script `src/content/train_classifier.py`: caricamento dataset, pipeline TF-IDF + SVM con scikit-learn, salvataggio modello in `models/classifier.pkl`
-- [ ] **4.14** — Trainare il modello e salvare il file `.pkl`
-- [ ] **4.15** — Implementare `_ml_classify(text)` → dict: caricamento modello con `joblib.load`, predict + predict_proba, restituzione categoria e confidence
-- [ ] **4.16** — Implementare il metodo pubblico `classify(text)` → dict: prima rule-based (se confidence > 0.85 → usa quello), altrimenti ML locale come fallback
-- [ ] **4.17** — Testare classificazione ibrida end-to-end con email di ogni categoria
+- [x] **4.8** — Creare la classe `ContentClassifier` in `src/content/classifier.py`
+- [x] **4.9** — Definire i pattern regex `RULE_BASED_SIGNALS` per ogni categoria: invoice, marketing, spam, support, legal, hr, sales, personal
+- [x] **4.10** — Implementare `_rule_based_classify(text)` → dict: matching pattern per categoria, calcolo confidence in base al numero e forza dei match
+- [x] **4.11** — Testare classificazione rule-based con almeno 2 email per ogni categoria
+- [x] **4.12** — Preparare un dataset di training: raccogliere almeno 50-100 email etichettate per categoria (possono essere raccolte incrementalmente)
+- [x] **4.13** — Creare lo script `src/content/train_classifier.py`: caricamento dataset, pipeline TF-IDF + SVM con scikit-learn, salvataggio modello in `models/classifier.pkl`
+- [x] **4.14** — Trainare il modello e salvare il file `.pkl`
+- [x] **4.15** — Implementare `_ml_classify(text)` → dict: caricamento modello con `joblib.load`, predict + predict_proba, restituzione categoria e confidence
+- [x] **4.16** — Implementare il metodo pubblico `classify(text)` → dict: prima rule-based (se confidence > 0.85 → usa quello), altrimenti ML locale come fallback
+- [x] **4.17** — Testare classificazione ibrida end-to-end con email di ogni categoria
 
 **Summarization:**
-- [ ] **4.18** — Creare la classe `ContentSummarizer` in `src/content/summarizer.py`
-- [ ] **4.19** — Implementare `_split_sentences(text)` → list: divisione testo in frasi tramite regex
-- [ ] **4.20** — Implementare `_get_stopwords()` → list: stopwords italiano + inglese per TF-IDF
-- [ ] **4.21** — Implementare `summarize(text, num_sentences=4)` → str: calcolo TF-IDF per frase, selezione delle N frasi con score piu alto, ricomposizione in ordine originale
-- [ ] **4.22** — Testare summarization con email di diversa lunghezza (corte, medie, molto lunghe)
+- [x] **4.18** — Creare la classe `ContentSummarizer` in `src/content/summarizer.py`
+- [x] **4.19** — Implementare `_split_sentences(text)` → list: divisione testo in frasi tramite regex
+- [x] **4.20** — Implementare `_get_stopwords()` → list: stopwords italiano + inglese per TF-IDF
+- [x] **4.21** — Implementare `summarize(text, num_sentences=4)` → str: calcolo TF-IDF per frase, selezione delle N frasi con score piu alto, ricomposizione in ordine originale
+- [x] **4.22** — Testare summarization con email di diversa lunghezza (corte, medie, molto lunghe)
 
 **Entity Extraction:**
-- [ ] **4.23** — Creare la classe `EntityExtractor` in `src/content/entity_extractor.py`
-- [ ] **4.24** — Implementare caricamento modello spaCy `it_core_news_lg` nel costruttore
-- [ ] **4.25** — Implementare estrazione persone (`PER`) e organizzazioni (`ORG`) tramite spaCy NER
-- [ ] **4.26** — Implementare estrazione date (`DATE`/`TIME`) tramite spaCy NER
-- [ ] **4.27** — Implementare `_extract_amounts(text)` con regex: pattern per importi con simbolo valuta (€, $, £) e con codice valuta (EUR, USD)
-- [ ] **4.28** — Implementare `_extract_references(text)` con regex: numeri fattura, ordine, ticket
-- [ ] **4.29** — Implementare il metodo pubblico `extract(text)` → dict che orchestra tutte le estrazioni
-- [ ] **4.30** — Testare entity extraction con email contenenti nomi, aziende, date, importi, riferimenti
+- [x] **4.23** — Creare la classe `EntityExtractor` in `src/content/entity_extractor.py`
+- [x] **4.24** — Implementare caricamento modello spaCy `it_core_news_lg` nel costruttore
+- [x] **4.25** — Implementare estrazione persone (`PER`) e organizzazioni (`ORG`) tramite spaCy NER
+- [x] **4.26** — Implementare estrazione date (`DATE`/`TIME`) tramite spaCy NER
+- [x] **4.27** — Implementare `_extract_amounts(text)` con regex: pattern per importi con simbolo valuta (€, $, £) e con codice valuta (EUR, USD)
+- [x] **4.28** — Implementare `_extract_references(text)` con regex: numeri fattura, ordine, ticket
+- [x] **4.29** — Implementare il metodo pubblico `extract(text)` → dict che orchestra tutte le estrazioni
+- [x] **4.30** — Testare entity extraction con email contenenti nomi, aziende, date, importi, riferimenti
 
 **Integrazione:**
-- [ ] **4.31** — Creare il modulo `src/db/content_repository.py` con metodo `save_result(email_id, content_result)`: INSERT nella tabella `content_results`
-- [ ] **4.32** — Creare la classe `ContentAnalyzer` in `src/content/analyzer.py` che orchestra: `EmailPreprocessor` → `ContentClassifier` → `ContentSummarizer` → `EntityExtractor` → salvataggio DB
-- [ ] **4.33** — Testare `ContentAnalyzer` end-to-end con email reali, verificare risultati in tabella `content_results`
+- [x] **4.31** — Creare il modulo `src/db/content_repository.py` con metodo `save_result(email_id, content_result)`: INSERT nella tabella `content_results`
+- [x] **4.32** — Creare la classe `ContentAnalyzer` in `src/content/analyzer.py` che orchestra: `EmailPreprocessor` → `ContentClassifier` → `ContentSummarizer` → `EntityExtractor` → salvataggio DB
+- [x] **4.33** — Testare `ContentAnalyzer` end-to-end con email reali, verificare risultati in tabella `content_results`
 
 ---
 
 ### Fase 5: Routing Engine
 
 **Condition Evaluator:**
-- [ ] **5.1** — Creare il file `src/routing/__init__.py`
-- [ ] **5.2** — Creare la classe `ConditionEvaluator` in `src/routing/condition_evaluator.py`
-- [ ] **5.3** — Implementare gli operatori di confronto: `eq`, `neq`, `gt`, `gte`, `lt`, `contains`, `matches`, `in`, `not_in`
-- [ ] **5.4** — Implementare `_resolve_field(field_path, context)`: risoluzione campi dot-notation (es: `security.risk_score` → `context["security"]["risk_score"]`)
-- [ ] **5.5** — Implementare il metodo `evaluate(condition, context)` → bool
-- [ ] **5.6** — Testare `ConditionEvaluator` con condizioni diverse su un contesto di esempio
+- [x] **5.1** — Creare il file `src/routing/__init__.py`
+- [x] **5.2** — Creare la classe `ConditionEvaluator` in `src/routing/condition_evaluator.py`
+- [x] **5.3** — Implementare gli operatori di confronto: `eq`, `neq`, `gt`, `gte`, `lt`, `contains`, `matches`, `in`, `not_in`
+- [x] **5.4** — Implementare `_resolve_field(field_path, context)`: risoluzione campi dot-notation (es: `security.risk_score` → `context["security"]["risk_score"]`)
+- [x] **5.5** — Implementare il metodo `evaluate(condition, context)` → bool
+- [x] **5.6** — Testare `ConditionEvaluator` con condizioni diverse su un contesto di esempio
 
 **Rule Engine:**
-- [ ] **5.7** — Creare la classe `RoutingEngine` in `src/routing/engine.py`
-- [ ] **5.8** — Creare il modulo `src/db/routing_repository.py` con metodo `get_active_rules()` → list: SELECT regole attive ordinate per priority
-- [ ] **5.9** — Implementare caricamento regole da DB nel costruttore di `RoutingEngine`
-- [ ] **5.10** — Implementare `_matches(rule, email_context)` → bool: valutazione condizioni con logica AND/OR
-- [ ] **5.11** — Implementare `evaluate(email_context)` → list[dict]: iterazione regole per priorità, raccolta azioni, gestione `stop_processing`
-- [ ] **5.12** — Implementare `_deduplicate_actions(actions)`: rimozione azioni duplicate, risoluzione conflitti (block override forward)
-- [ ] **5.13** — Testare rule engine con set di regole di esempio e diversi contesti email
+- [x] **5.7** — Creare la classe `RoutingEngine` in `src/routing/engine.py`
+- [x] **5.8** — Creare il modulo `src/db/routing_repository.py` con metodo `get_active_rules()` → list: SELECT regole attive ordinate per priority
+- [x] **5.9** — Implementare caricamento regole da DB nel costruttore di `RoutingEngine`
+- [x] **5.10** — Implementare `_matches(rule, email_context)` → bool: valutazione condizioni con logica AND/OR
+- [x] **5.11** — Implementare `evaluate(email_context)` → list[dict]: iterazione regole per priorità, raccolta azioni, gestione `stop_processing`
+- [x] **5.12** — Implementare `_deduplicate_actions(actions)`: rimozione azioni duplicate, risoluzione conflitti (block override forward)
+- [x] **5.13** — Testare rule engine con set di regole di esempio e diversi contesti email
 
 **Action Executor:**
-- [ ] **5.14** — Creare la classe `ActionExecutor` in `src/routing/action_executor.py`
-- [ ] **5.15** — Implementare azione `block`: marcatura email come bloccata nel DB (`processing_status = 'blocked'`)
-- [ ] **5.16** — Implementare azione `quarantine`: spostamento email nella cartella IMAP di review + flag nel DB
-- [ ] **5.17** — Implementare azione `tag`: salvataggio tag associati all'email nel DB
-- [ ] **5.18** — Implementare azione `notify`: invio notifica all'admin (email di alert tramite SMTP)
-- [ ] **5.19** — Implementare azione `forward` come **stub disabilitato**: il metodo esiste ma logga un warning "forward action disabled — future feature" senza eseguire nulla
-- [ ] **5.20** — Implementare il metodo pubblico `execute(email_id, action)` → bool che smista verso l'azione corretta
-- [ ] **5.21** — Testare ogni azione singolarmente con email di test
+- [x] **5.14** — Creare la classe `ActionExecutor` in `src/routing/action_executor.py`
+- [x] **5.15** — Implementare azione `block`: marcatura email come bloccata nel DB (`processing_status = 'blocked'`)
+- [x] **5.16** — Implementare azione `quarantine`: spostamento email nella cartella IMAP di review + flag nel DB
+- [x] **5.17** — Implementare azione `tag`: salvataggio tag associati all'email nel DB
+- [x] **5.18** — Implementare azione `notify`: invio notifica all'admin (email di alert tramite SMTP)
+- [x] **5.19** — Implementare azione `forward` come **stub disabilitato**: il metodo esiste ma logga un warning "forward action disabled — future feature" senza eseguire nulla
+- [x] **5.20** — Implementare il metodo pubblico `execute(email_id, action)` → bool che smista verso l'azione corretta
+- [x] **5.21** — Testare ogni azione singolarmente con email di test
 
 **Logging e CRUD:**
-- [ ] **5.22** — Implementare metodo `save_routing_log(email_id, rule_id, action, success, error)` in `routing_repository.py`: INSERT in `routing_logs`
-- [ ] **5.23** — Implementare metodo `save_audit_log(event_type, entity_type, entity_id, actor, details)` in `src/db/audit_repository.py`: INSERT in `audit_log`
-- [ ] **5.24** — Integrare logging automatico in `ActionExecutor`: ogni azione eseguita scrive in `routing_logs` e `audit_log`
-- [ ] **5.25** — Creare API CRUD per regole di routing (`src/api/routing_rules.py`): GET lista, GET singola, POST crea, PUT modifica, DELETE elimina
-- [ ] **5.26** — Implementare dry-run mode: endpoint che simula la valutazione delle regole su un'email senza eseguire azioni, restituendo le azioni che verrebbero applicate
-- [ ] **5.27** — Testare CRUD regole via API (creare, modificare, disabilitare, eliminare una regola)
-- [ ] **5.28** — Inserire nel DB le regole iniziali di routing (block DANGEROUS, quarantine SUSPICIOUS con score >= 60, auto-delete spam)
+- [x] **5.22** — Implementare metodo `save_routing_log(email_id, rule_id, action, success, error)` in `routing_repository.py`: INSERT in `routing_logs`
+- [x] **5.23** — Implementare metodo `save_audit_log(event_type, entity_type, entity_id, actor, details)` in `src/db/audit_repository.py`: INSERT in `audit_log`
+- [x] **5.24** — Integrare logging automatico in `ActionExecutor`: ogni azione eseguita scrive in `routing_logs` e `audit_log`
+- [x] **5.25** — Creare API CRUD per regole di routing (`src/api/routing_rules.py`): GET lista, GET singola, POST crea, PUT modifica, DELETE elimina
+- [x] **5.26** — Implementare dry-run mode: endpoint che simula la valutazione delle regole su un'email senza eseguire azioni, restituendo le azioni che verrebbero applicate
+- [x] **5.27** — Testare CRUD regole via API (creare, modificare, disabilitare, eliminare una regola)
+- [x] **5.28** — Inserire nel DB le regole iniziali di routing (block DANGEROUS, quarantine SUSPICIOUS con score >= 60, auto-delete spam)
 
 ---
 
 ### Fase 6: Pipeline Completa e Integrazione
 
-- [ ] **6.1** — Creare la classe `EmailPipeline` in `src/pipeline.py` che orchestra in sequenza: `IngestionService` → `SecurityEngine` → `CountryDetector` → `ContentAnalyzer` → `RoutingEngine` + `ActionExecutor`
-- [ ] **6.2** — Implementare gestione degli errori nella pipeline: se uno step fallisce, marcare email come `failed` nel DB con dettaglio dell'errore, continuare con le email successive
-- [ ] **6.3** — Implementare fast-track per email DANGEROUS: se il security engine da verdetto DANGEROUS, saltare country + content e andare direttamente al routing
-- [ ] **6.4** — Integrare `EmailPipeline` in `main.py`: il loop di polling chiama `pipeline.process()` per ogni nuova email
-- [ ] **6.5** — Test end-to-end pipeline completa: inviare email di diversi tipi (pulita, sospetta, con allegato pericoloso, in lingue diverse, con fattura) e verificare che ogni email attraversi tutti gli step con risultati corretti in DB
+- [x] **6.1** — Creare la classe `EmailPipeline` in `src/pipeline.py` che orchestra in sequenza: `IngestionService` → `SecurityEngine` → `CountryDetector` → `ContentAnalyzer` → `RoutingEngine` + `ActionExecutor`
+- [x] **6.2** — Implementare gestione degli errori nella pipeline: se uno step fallisce, marcare email come `failed` nel DB con dettaglio dell'errore, continuare con le email successive
+- [x] **6.3** — Implementare fast-track per email DANGEROUS: se il security engine da verdetto DANGEROUS, saltare country + content e andare direttamente al routing
+- [x] **6.4** — Integrare `EmailPipeline` in `main.py`: il loop di polling chiama `pipeline.process()` per ogni nuova email
+- [x] **6.5** — Test end-to-end pipeline completa: inviare email di diversi tipi (pulita, sospetta, con allegato pericoloso, in lingue diverse, con fattura) e verificare che ogni email attraversi tutti gli step con risultati corretti in DB
 
 ---
 
 ### Fase 7: API & Dashboard
 
 **API REST:**
-- [ ] **7.1** — Creare l'app FastAPI in `src/api/app.py` con configurazione CORS e middleware
-- [ ] **7.2** — Implementare endpoint `GET /api/emails`: lista email con paginazione e filtri (status, date range, category)
-- [ ] **7.3** — Implementare endpoint `GET /api/emails/{id}`: dettaglio singola email con tutti i risultati di analisi (security, country, content, routing logs)
-- [ ] **7.4** — Implementare endpoint `GET /api/stats`: statistiche aggregate (email per giorno, distribuzione per categoria, distribuzione risk score, email per paese)
-- [ ] **7.5** — Implementare endpoint `GET /api/routing-rules` + `POST` + `PUT` + `DELETE`: CRUD regole (collegare al codice già implementato in Fase 5)
-- [ ] **7.6** — Implementare autenticazione JWT: endpoint `POST /api/auth/login`, middleware di verifica token su tutti gli endpoint protetti
-- [ ] **7.7** — Testare tutti gli endpoint API con tool (curl, Postman, httpie)
+- [x] **7.1** — Creare l'app FastAPI in `src/api/app.py` con configurazione CORS e middleware
+- [x] **7.2** — Implementare endpoint `GET /api/emails`: lista email con paginazione e filtri (status, date range, category)
+- [x] **7.3** — Implementare endpoint `GET /api/emails/{id}`: dettaglio singola email con tutti i risultati di analisi (security, country, content, routing logs)
+- [x] **7.4** — Implementare endpoint `GET /api/stats`: statistiche aggregate (email per giorno, distribuzione per categoria, distribuzione risk score, email per paese)
+- [x] **7.5** — Implementare endpoint `GET /api/routing-rules` + `POST` + `PUT` + `DELETE`: CRUD regole (collegare al codice già implementato in Fase 5)
+- [x] **7.6** — Implementare autenticazione JWT: endpoint `POST /api/auth/login`, middleware di verifica token su tutti gli endpoint protetti
+- [x] **7.7** — Testare tutti gli endpoint API con tool (curl, Postman, httpie)
 
 **Frontend (React):**
-- [ ] **7.8** — Inizializzare progetto frontend React nella cartella `frontend/`
-- [ ] **7.9** — Implementare pagina login con form username/password
-- [ ] **7.10** — Implementare pagina lista email: tabella con colonne (data, mittente, oggetto, categoria, risk score, paese, stato), paginazione, filtri
-- [ ] **7.11** — Implementare pagina dettaglio email: visualizzazione body, metadata arricchiti (security verdict, country, summary, entities), routing log
-- [ ] **7.12** — Implementare pagina gestione regole di routing: lista regole, form creazione/modifica, toggle abilita/disabilita, dry-run
-- [ ] **7.13** — Implementare dashboard analytics: grafici volume email per giorno, distribuzione risk score, distribuzione per paese, distribuzione per categoria
-- [ ] **7.14** — Testare frontend collegato alle API: navigazione completa, visualizzazione dati reali
+- [x] **7.8** — Inizializzare progetto frontend React nella cartella `frontend/`
+- [x] **7.9** — Implementare pagina login con form username/password
+- [x] **7.10** — Implementare pagina lista email: tabella con colonne (data, mittente, oggetto, categoria, risk score, paese, stato), paginazione, filtri
+- [x] **7.11** — Implementare pagina dettaglio email: visualizzazione body, metadata arricchiti (security verdict, country, summary, entities), routing log
+- [x] **7.12** — Implementare pagina gestione regole di routing: lista regole, form creazione/modifica, toggle abilita/disabilita, dry-run
+- [x] **7.13** — Implementare dashboard analytics: grafici volume email per giorno, distribuzione risk score, distribuzione per paese, distribuzione per categoria
+- [x] **7.14** — Testare frontend collegato alle API: navigazione completa, visualizzazione dati reali
 
 ---
 

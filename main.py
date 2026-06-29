@@ -1,6 +1,6 @@
 """
 SalesEmailTool - Entry point.
-Avvia il servizio di ingestion email con polling periodico.
+Avvia il servizio di ingestion email con pipeline completa di analisi.
 """
 
 import sys
@@ -11,10 +11,11 @@ from src.utils.config import config, Config
 from src.utils.logger import logger
 from src.db.connection import test_connection
 from src.ingestion.service import IngestionService
+from src.pipeline import EmailPipeline
 
 
 def main():
-    logger.info("application_starting", version="0.1.0")
+    logger.info("application_starting", version="1.0.0")
 
     # Validazione variabili d'ambiente
     missing = Config.validate()
@@ -33,8 +34,10 @@ def main():
         logger.error("database_connection_failed", message="Impossibile connettersi al database. Verificare .env")
         sys.exit(1)
 
-    # Inizializza servizio di ingestion
+    # Inizializza servizi
     service = IngestionService()
+    pipeline = EmailPipeline()
+
     logger.info(
         "application_ready",
         db_host=config.DB_HOST,
@@ -43,11 +46,34 @@ def main():
         poll_interval=config.POLL_INTERVAL_SECONDS,
     )
 
+    def poll_and_process():
+        """Polling: fetch nuove email, poi pipeline completa per ognuna."""
+        if not service.client.is_connected:
+            service.client.connect()
+
+        raw_emails = service.client.poll()
+        if not raw_emails:
+            return
+
+        for raw in raw_emails:
+            try:
+                # Step 1: Ingestion (parse + save to DB)
+                email_id = service._process_single_email(raw)
+
+                # Step 2: Pipeline completa (security + country + content + routing)
+                parsed = service.parser.parse(raw)
+                pipeline.process(email_id, parsed)
+
+            except Exception as e:
+                logger.error("poll_process_failed", error=str(e))
+
+        logger.info("poll_cycle_complete", emails_processed=len(raw_emails))
+
     # Configura polling periodico
-    schedule.every(config.POLL_INTERVAL_SECONDS).seconds.do(service.run_poll)
+    schedule.every(config.POLL_INTERVAL_SECONDS).seconds.do(poll_and_process)
 
     # Esegui primo poll immediatamente
-    service.run_poll()
+    poll_and_process()
 
     # Loop principale
     logger.info("polling_loop_started", interval_seconds=config.POLL_INTERVAL_SECONDS)

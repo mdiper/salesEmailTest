@@ -16,9 +16,16 @@ joblib
 tldextract
 geoip2
 
+# Auth
+pyjwt
+passlib[bcrypt]
+
 # Utilities
 tenacity
 schedule
+
+# Testing API
+httpx2
 
 # -----------------------------------------------------------
 # NLP avanzato (richiede Python <= 3.12 per wheel precompilati)

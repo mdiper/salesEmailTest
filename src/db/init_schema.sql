@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS emails (
     body_html           LONGTEXT DEFAULT NULL,
     raw_size_bytes      INT DEFAULT NULL,
     has_attachments     BOOLEAN DEFAULT FALSE,
-    processing_status   VARCHAR(20) DEFAULT 'pending' COMMENT 'pending, processing, completed, failed',
+    processing_status   VARCHAR(20) DEFAULT 'pending' COMMENT 'pending, processing, completed, failed, blocked, quarantined',
+    tags                JSON DEFAULT NULL,
     created_at          DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at          DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (account_id) REFERENCES accounts(id)
@@ -179,3 +180,16 @@ CREATE TABLE IF NOT EXISTS audit_log (
 
 CREATE INDEX idx_audit_time ON audit_log(created_at DESC);
 CREATE INDEX idx_audit_entity ON audit_log(entity_type, entity_id);
+
+-- === FORWARDING RULES (per paese) ===
+
+CREATE TABLE IF NOT EXISTS forwarding_rules (
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    country_code    CHAR(2) NOT NULL,
+    country_name    VARCHAR(100) NOT NULL,
+    forward_to      VARCHAR(255) NOT NULL,
+    is_active       BOOLEAN DEFAULT TRUE,
+    created_at      DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at      DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_forwarding_country (country_code)
+);
